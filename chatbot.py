@@ -1,13 +1,10 @@
-from google import genai
+import os
+import google.generativeai as genai
 
-# Add your API key
-client = genai.Client(api_key="YOUR API KEY")
+genai.configure(api_key=os.getenv("API_KEY"))
 
-model = "gemini-2.5-flash"
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def get_response(user_input):
-    response = client.models.generate_content(
-        model=model,
-        contents=user_input
-    )
+    response = model.generate_content(user_input)
     return response.text
